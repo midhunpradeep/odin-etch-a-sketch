@@ -58,9 +58,17 @@ function resizeBoxes() {
 }
 
 function main() {
-  createGrid(16, 16);
+  let button = document.getElementById("resize-btn");
 
-  document.getElementById("resize-btn").addEventListener("click", () => {
+  button.addEventListener(
+    "click",
+    () => {
+      button.textContent = "Resize";
+    },
+    { once: true },
+  );
+
+  button.addEventListener("click", () => {
     let gridSize = parseInt(prompt("New grid size (Max 100): "));
     if (isNaN(gridSize)) {
       gridSize = 16;
