@@ -39,15 +39,17 @@ function resizeBoxes() {
     window.innerHeight || 0,
   );
 
-  let availableHeight =
-    vh - parseInt(window.getComputedStyle(canvas).margin) * 2;
+  let margin = parseInt(window.getComputedStyle(canvas).margin);
+  let availableHeight = vh - margin * 2;
+  let availableWidth = vw - margin * 2;
+
   let numBoxesY = canvas.children.length;
   let numBoxesX = canvas.children[0].children.length;
 
   let boxes = document.querySelectorAll(".box");
   for (const box of boxes) {
     let idealWidth = availableHeight / numBoxesY;
-    let idealHeight = vw / numBoxesX;
+    let idealHeight = availableWidth / numBoxesX;
 
     let actualHeightWidth = Math.min(idealHeight, idealWidth);
     box.style.minHeight = actualHeightWidth + "px";
