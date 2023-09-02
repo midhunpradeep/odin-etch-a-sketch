@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    flex: 0 0 1;
+    border: 1px solid black;
+    aspect-ratio: 1 / 1;
+}
