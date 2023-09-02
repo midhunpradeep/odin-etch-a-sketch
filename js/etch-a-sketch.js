@@ -22,11 +22,21 @@ function createGrid(numBoxesX, numBoxesY) {
       if (i === numBoxesY - 1) box.classList.add("b-bottom");
       if (j === 0) box.classList.add("b-left");
 
+      box.addEventListener("mouseover", fillBox);
+
       rowFlexBox.appendChild(box);
     }
   }
 
   resizeBoxes();
+}
+
+function fillBox(event) {
+  event.target.classList.add("filled");
+}
+
+function unfillBox(event) {
+  event.target.classList.remove("filled");
 }
 
 function resizeBoxes() {

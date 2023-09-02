@@ -20,6 +20,10 @@
     aspect-ratio: 1 / 1;
 }
 
+.box.filled {
+    background-color: black;
+}
+
 .b-top {
     border-top: var(--border);
 }
