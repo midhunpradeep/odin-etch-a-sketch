@@ -1,3 +1,7 @@
+:root {
+    --border: 1px solid black;
+}
+
 #resize-btn {
     display: block;
     margin: 1rem auto;
@@ -13,6 +17,18 @@
 }
 
 .box {
-    border: 1px solid black;
     aspect-ratio: 1 / 1;
+}
+
+.b-top {
+    border-top: var(--border);
+}
+.b-right {
+    border-right: var(--border);
+}
+.b-bottom {
+    border-bottom: var(--border);
+}
+.b-left {
+    border-left: var(--border);
 }

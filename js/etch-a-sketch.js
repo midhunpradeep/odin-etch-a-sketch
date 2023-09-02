@@ -16,6 +16,12 @@ function createGrid(numBoxesX, numBoxesY) {
     for (let j = 0; j < numBoxesX; j++) {
       let box = document.createElement("div");
       box.classList.add("box");
+
+      if (i === 0) box.classList.add("b-top");
+      if (j === numBoxesX - 1) box.classList.add("b-right");
+      if (i === numBoxesY - 1) box.classList.add("b-bottom");
+      if (j === 0) box.classList.add("b-left");
+
       rowFlexBox.appendChild(box);
     }
   }
