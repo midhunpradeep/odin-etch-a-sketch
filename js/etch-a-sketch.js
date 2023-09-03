@@ -134,14 +134,6 @@ function setDrawingState(e) {
 function main() {
   let resizeButton = document.getElementById("resize-btn");
 
-  resizeButton.addEventListener(
-    "click",
-    () => {
-      resizeButton.textContent = "Resize";
-    },
-    { once: true },
-  );
-
   resizeButton.addEventListener("click", () => {
     let gridSize = parseInt(prompt("New grid size (Max 100): "));
     if (isNaN(gridSize)) {
@@ -156,6 +148,7 @@ function main() {
   window.addEventListener("mousemove", setDrawingState);
 
   bindDrawButtonKeys();
+  createGrid(100, 100);
 }
 
 main();
