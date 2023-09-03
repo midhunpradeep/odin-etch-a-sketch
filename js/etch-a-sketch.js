@@ -146,14 +146,17 @@ function setDrawingState(e) {
 }
 
 function main() {
+  const DEFAULT_RESOLUTION = 64;
+  const MAX_RESOLUTION = 128;
+
   let resizeButton = document.getElementById("resize-btn");
 
   resizeButton.addEventListener("click", () => {
-    let gridSize = parseInt(prompt("New grid size (Max 100): "));
+    let gridSize = parseInt(prompt(`New grid size (Max ${MAX_RESOLUTION}): `));
     if (isNaN(gridSize)) {
-      gridSize = 100;
+      gridSize = DEFAULT_RESOLUTION;
     }
-    gridSize = Math.min(gridSize, 100);
+    gridSize = Math.min(gridSize, MAX_RESOLUTION);
     createGrid(gridSize, gridSize);
   });
 
@@ -162,7 +165,7 @@ function main() {
   window.addEventListener("mousemove", setDrawingState);
 
   bindDrawButtonKeys();
-  createGrid(100, 100);
+  createGrid(DEFAULT_RESOLUTION, DEFAULT_RESOLUTION);
 }
 
 main();
