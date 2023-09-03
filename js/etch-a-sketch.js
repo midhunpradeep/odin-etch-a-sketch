@@ -1,6 +1,7 @@
 "use strict";
 
 let canvas = document.getElementById("canvas");
+let drawing = false;
 
 function createGrid(numBoxesX, numBoxesY) {
   canvas.remove();
@@ -34,10 +35,10 @@ function createGrid(numBoxesX, numBoxesY) {
 }
 
 function draw(event) {
+  if (!drawing) return;
+
   let activeButton = getActiveModeButton();
   switch (activeButton.id) {
-    case "nothing-btn":
-      break;
     case "etch-btn":
       event.target.classList.add("filled");
       break;
@@ -53,7 +54,7 @@ function switchActiveModeButton(button) {
       box.classList.remove("filled");
     }
 
-    switchActiveModeButton(document.getElementById("nothing-btn"));
+    switchActiveModeButton(document.getElementById("etch-btn"));
     return;
   }
 
@@ -113,6 +114,11 @@ function bindDrawButtonKeys() {
   });
 }
 
+function setDrawingState(e) {
+  let flags = e.buttons !== undefined ? e.buttons : e.which;
+  drawing = (flags & 1) === 1;
+}
+
 function main() {
   let resizeButton = document.getElementById("resize-btn");
 
@@ -132,6 +138,10 @@ function main() {
     gridSize = Math.min(gridSize, 100);
     createGrid(gridSize, gridSize);
   });
+
+  window.addEventListener("mousedown", setDrawingState);
+  window.addEventListener("mouseup", setDrawingState);
+  window.addEventListener("mousemove", setDrawingState);
 
   bindDrawButtonKeys();
 }
