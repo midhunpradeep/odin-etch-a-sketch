@@ -48,6 +48,15 @@ function draw(event) {
 }
 
 function switchActiveModeButton(button) {
+  if (button.id === "clear-btn") {
+    for (const box of document.querySelectorAll(".box")) {
+      box.classList.remove("filled");
+    }
+
+    switchActiveModeButton(document.getElementById("nothing-btn"));
+    return;
+  }
+
   getActiveModeButton().disabled = false;
   button.disabled = true;
 }
