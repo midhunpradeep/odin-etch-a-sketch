@@ -42,6 +42,15 @@ function createGrid(numBoxesX, numBoxesY) {
   resizeBoxes();
 }
 
+function getDarkerShade(rgb) {
+  rgb = rgb.replace(/[^\d,]/g, "").split(",");
+  for (let i = 0; i < rgb.length; i++) {
+    rgb[i] = Number(rgb[i]);
+    rgb[i] -= Math.round(0.1 * rgb[i]);
+  }
+  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
 function randInt(min, max) {
   return min + Math.random() * (max - min);
 }
@@ -59,6 +68,11 @@ function draw(event) {
       break;
     case "random-btn":
       event.target.style.backgroundColor = `hsl(${randInt(0, 360)}, 95%, 50%)`;
+      break;
+    case "shade-btn":
+      let oldBGColor = window.getComputedStyle(event.target).backgroundColor;
+      event.target.style.backgroundColor = getDarkerShade(oldBGColor);
+      break;
   }
 }
 
