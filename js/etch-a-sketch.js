@@ -27,6 +27,14 @@ function createGrid(numBoxesX, numBoxesY) {
         draw(event);
       });
 
+      box.addEventListener("dragstart", (event) => {
+        event.preventDefault();
+      });
+
+      box.addEventListener("drop", (event) => {
+        event.preventDefault();
+      });
+
       rowFlexBox.appendChild(box);
     }
   }
