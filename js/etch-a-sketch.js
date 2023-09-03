@@ -137,7 +137,7 @@ function main() {
   resizeButton.addEventListener("click", () => {
     let gridSize = parseInt(prompt("New grid size (Max 100): "));
     if (isNaN(gridSize)) {
-      gridSize = 16;
+      gridSize = 100;
     }
     gridSize = Math.min(gridSize, 100);
     createGrid(gridSize, gridSize);
