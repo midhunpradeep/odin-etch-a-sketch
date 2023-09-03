@@ -67,8 +67,6 @@ function switchActiveModeButton(button) {
     for (const box of document.querySelectorAll(".box")) {
       box.style.backgroundColor = "white";
     }
-
-    switchActiveModeButton(document.getElementById("etch-btn"));
     return;
   }
 
