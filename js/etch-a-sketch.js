@@ -42,24 +42,30 @@ function createGrid(numBoxesX, numBoxesY) {
   resizeBoxes();
 }
 
+function randInt(min, max) {
+  return min + Math.random() * (max - min);
+}
+
 function draw(event) {
   if (!drawing) return;
 
   let activeButton = getActiveModeButton();
   switch (activeButton.id) {
     case "etch-btn":
-      event.target.classList.add("filled");
+      event.target.style.backgroundColor = "black";
       break;
     case "erase-btn":
-      event.target.classList.remove("filled");
+      event.target.style.backgroundColor = "white";
       break;
+    case "random-btn":
+      event.target.style.backgroundColor = `hsl(${randInt(0, 360)}, 95%, 50%)`;
   }
 }
 
 function switchActiveModeButton(button) {
   if (button.id === "clear-btn") {
     for (const box of document.querySelectorAll(".box")) {
-      box.classList.remove("filled");
+      box.style.backgroundColor = "white";
     }
 
     switchActiveModeButton(document.getElementById("etch-btn"));
