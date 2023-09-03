@@ -1,7 +1,6 @@
 "use strict";
 
 let canvas = document.getElementById("canvas");
-let etching = true;
 
 function createGrid(numBoxesX, numBoxesY) {
   canvas.remove();
@@ -24,11 +23,7 @@ function createGrid(numBoxesX, numBoxesY) {
       if (j === 0) box.classList.add("b-left");
 
       box.addEventListener("mouseover", (event) => {
-        if (etching) {
-          event.target.classList.add("filled");
-        } else {
-          event.target.classList.remove("filled");
-        }
+        draw(event);
       });
 
       rowFlexBox.appendChild(box);
@@ -36,6 +31,29 @@ function createGrid(numBoxesX, numBoxesY) {
   }
 
   resizeBoxes();
+}
+
+function draw(event) {
+  let activeButton = getActiveModeButton();
+  switch (activeButton.id) {
+    case "nothing-btn":
+      break;
+    case "etch-btn":
+      event.target.classList.add("filled");
+      break;
+    case "erase-btn":
+      event.target.classList.remove("filled");
+      break;
+  }
+}
+
+function switchActiveModeButton(button) {
+  getActiveModeButton().disabled = false;
+  button.disabled = true;
+}
+
+function getActiveModeButton() {
+  return document.querySelector("#btn-container > button:disabled");
 }
 
 function resizeBoxes() {
@@ -66,14 +84,24 @@ function resizeBoxes() {
   }
 }
 
-function toggleEtching() {
-  etching = !etching;
-  let button = document.getElementById("etch-btn");
-  if (etching) {
-    button.textContent = "T: Etch Mode";
-  } else {
-    button.textContent = "T: Erase Mode";
+function bindDrawButtonKeys() {
+  let drawButtons = document.querySelectorAll(
+    "#btn-container > button[data-kb]",
+  );
+
+  for (const button of drawButtons) {
+    button.addEventListener("click", () => {
+      switchActiveModeButton(button);
+    });
   }
+
+  window.addEventListener("keypress", (event) => {
+    for (const button of drawButtons) {
+      if (event.key === button.dataset.kb.toLowerCase()) {
+        switchActiveModeButton(button);
+      }
+    }
+  });
 }
 
 function main() {
@@ -96,15 +124,7 @@ function main() {
     createGrid(gridSize, gridSize);
   });
 
-  let etchToggleButton = document.getElementById("etch-btn");
-  etchToggleButton.addEventListener("click", () => {
-    toggleEtching();
-  });
-  window.addEventListener("keypress", (event) => {
-    if (event.key === "T" || event.key === "t") {
-      toggleEtching();
-    }
-  });
+  bindDrawButtonKeys();
 }
 
 main();
