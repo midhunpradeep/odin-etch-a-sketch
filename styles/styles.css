@@ -2,8 +2,12 @@
     --border: 1px solid black;
 }
 
+#btn-container {
+    width: fit-content;
+    margin: auto;
+}
+
 #resize-btn {
-    display: block;
     margin: 1rem auto;
 }
 

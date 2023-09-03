@@ -1,12 +1,13 @@
 "use strict";
 
 let canvas = document.getElementById("canvas");
+let etching = true;
 
 function createGrid(numBoxesX, numBoxesY) {
   canvas.remove();
   canvas = document.createElement("div");
   canvas.id = "#canvas";
-  document.body.insertBefore(canvas, document.getElementById("resize-btn"));
+  document.body.insertBefore(canvas, document.getElementById("btn-container"));
 
   for (let i = 0; i < numBoxesY; i++) {
     let rowFlexBox = document.createElement("div");
@@ -22,21 +23,19 @@ function createGrid(numBoxesX, numBoxesY) {
       if (i === numBoxesY - 1) box.classList.add("b-bottom");
       if (j === 0) box.classList.add("b-left");
 
-      box.addEventListener("mouseover", fillBox);
+      box.addEventListener("mouseover", (event) => {
+        if (etching) {
+          event.target.classList.add("filled");
+        } else {
+          event.target.classList.remove("filled");
+        }
+      });
 
       rowFlexBox.appendChild(box);
     }
   }
 
   resizeBoxes();
-}
-
-function fillBox(event) {
-  event.target.classList.add("filled");
-}
-
-function unfillBox(event) {
-  event.target.classList.remove("filled");
 }
 
 function resizeBoxes() {
@@ -67,24 +66,44 @@ function resizeBoxes() {
   }
 }
 
-function main() {
-  let button = document.getElementById("resize-btn");
+function toggleEtching() {
+  etching = !etching;
+  let button = document.getElementById("etch-btn");
+  if (etching) {
+    button.textContent = "T: Etch Mode";
+  } else {
+    button.textContent = "T: Erase Mode";
+  }
+}
 
-  button.addEventListener(
+function main() {
+  let resizeButton = document.getElementById("resize-btn");
+
+  resizeButton.addEventListener(
     "click",
     () => {
-      button.textContent = "Resize";
+      resizeButton.textContent = "Resize";
     },
     { once: true },
   );
 
-  button.addEventListener("click", () => {
+  resizeButton.addEventListener("click", () => {
     let gridSize = parseInt(prompt("New grid size (Max 100): "));
     if (isNaN(gridSize)) {
       gridSize = 16;
     }
     gridSize = Math.min(gridSize, 100);
     createGrid(gridSize, gridSize);
+  });
+
+  let etchToggleButton = document.getElementById("etch-btn");
+  etchToggleButton.addEventListener("click", () => {
+    toggleEtching();
+  });
+  window.addEventListener("keypress", (event) => {
+    if (event.key === "T" || event.key === "t") {
+      toggleEtching();
+    }
   });
 }
 
