@@ -11,10 +11,6 @@
     margin: 1rem auto;
 }
 
-#canvas {
-    margin: 1rem;
-}
-
 .row {
     display: flex;
     justify-content: center;

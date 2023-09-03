@@ -49,8 +49,8 @@ function resizeBoxes() {
   );
 
   let margin = parseInt(window.getComputedStyle(canvas).margin);
-  let availableHeight = vh - margin * 2;
-  let availableWidth = vw - margin * 2;
+  let availableHeight = vh - 48;
+  let availableWidth = vw - 48;
 
   let numBoxesY = canvas.children.length;
   let numBoxesX = canvas.children[0].children.length;
